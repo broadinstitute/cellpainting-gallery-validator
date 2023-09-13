@@ -1,0 +1,9 @@
+name: dataval
+channels:
+  - conda-forge
+dependencies:
+  - orjson>=3.8
+  - jsonschema>=4.16
+  - tqdm>=4.64
+  - pandas>=1.5
+  - pytest>=7.1

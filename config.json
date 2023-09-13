@@ -1,0 +1,37 @@
+{
+    "aws_prefix": "jump/",
+    "cpg_id": "cpg0016",
+    "mandatory_columns_path": "mandatory_columns/cpg0016.txt",
+    "local_copy_path": "./inputs/",
+    "illumination_channels": [
+        "IllumAGP",
+        "IllumBrightfield",
+        "IllumBrightfield_H",
+        "IllumBrightfield_L",
+        "IllumDNA",
+        "IllumER",
+        "IllumMito",
+        "IllumRNA",
+        "IllumHighZBF",
+        "IllumLowZBF"
+    ],
+    "analysis_csv_files": [
+        "FilteredCells",
+        "Cells",
+        "Cytoplasm",
+        "Image",
+        "Nuclei",
+        "Experiment",
+        "Mito"
+    ],
+    "profiles": [
+        "augmented",
+        "normalized",
+        "normalized_negcon",
+        "normalized_feature_select_batch",
+        "normalized_feature_select_negcon_batch",
+        "normalized_feature_select_plate",
+        "normalized_feature_select_negcon_plate",
+        "spherized"
+    ]
+}

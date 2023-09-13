@@ -1,0 +1,184 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://jump-cellpainting.broadinstitute.org/cellpainting.json",
+    "title": "CellPaintingDataset",
+    "description": "Cell Painting dataset processed with CellProfiler and Pycytominer",
+    "type": "object",
+    "properties": {
+        "dataset_id": {
+            "type": "string"
+        },
+        "batches": {
+            "description": "List of batches in this dataset",
+            "type": "array",
+            "items": {
+                "$ref": "#/$defs/batch"
+            },
+            "minItems": 1
+        }
+    },
+    "required": [
+        "dataset_id",
+        "batches"
+    ],
+    "additionalProperties": false,
+    "$defs": {
+        "batch": {
+            "type": "object",
+            "properties": {
+                "batch_id": {
+                    "type": "string"
+                },
+                "plates": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {
+                        "$ref": "#/$defs/plate"
+                    }
+                },
+                "platemaps": {
+                    "$ref": "#/$defs/s3_object_list"
+                },
+                "barcode_platemap": {
+                    "$ref": "#/$defs/s3_object"
+                }
+            },
+            "required": [
+                "batch_id",
+                "plates",
+                "platemaps",
+                "barcode_platemap"
+            ],
+            "additionalProperties": false
+        },
+        "plate": {
+            "type": "object",
+            "properties": {
+                "plate_id": {
+                    "type": "string"
+                },
+                "backend_csv": {
+                    "$ref": "#/$defs/s3_object"
+                },
+                "backend_sqlite": {
+                    "$ref": "#/$defs/s3_object"
+                },
+                "load_data_with_illum": {
+                    "$ref": "#/$defs/s3_object"
+                },
+                "load_data_csv": {
+                    "$ref": "#/$defs/s3_object"
+                },
+                "profiles": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "#/$defs/s3_object"
+                    },
+                    "required": [
+                        "default"
+                    ]
+                },
+                "correction_files": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "#/$defs/s3_object"
+                    }
+                },
+                "images": {
+                    "$ref": "#/$defs/s3_object_list"
+                },
+                "wells": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/$defs/well"
+                    }
+                },
+                "containers": {
+                    "$ref": "#/$defs/containers"
+                },
+                "platemap": {
+                    "$ref": "#/$defs/s3_object"
+                },
+                "platemap_name": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": false
+        },
+        "well": {
+            "type": "object",
+            "properties": {
+                "well_id": {
+                    "type": "string"
+                },
+                "containers": {
+                    "$ref": "#/$defs/containers"
+                },
+                "sites": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/$defs/site"
+                    }
+                }
+            },
+            "additionalProperties": false
+        },
+        "site": {
+            "type": "object",
+            "properties": {
+                "site_id": {
+                    "type": "string"
+                },
+                "containers": {
+                    "$ref": "#/$defs/containers"
+                }
+            }
+        },
+        "containers": {
+            "type": "object",
+            "properties": {
+                "Cells": {
+                    "$ref": "#/$defs/s3_object"
+                },
+                "Cytoplasm": {
+                    "$ref": "#/$defs/s3_object"
+                },
+                "Image": {
+                    "$ref": "#/$defs/s3_object"
+                },
+                "Nuclei": {
+                    "$ref": "#/$defs/s3_object"
+                },
+                "Experiment": {
+                    "$ref": "#/$defs/s3_object"
+                }
+            },
+            "additionalProperties": false
+        },
+        "s3_object_list": {
+            "type": "array",
+            "items": {
+                "$ref": "#/$defs/s3_object"
+            },
+            "minItems": 1
+        },
+        "s3_object": {
+            "type": "object",
+            "properties": {
+                "date": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "size": {
+                    "type": "number",
+                    "minimum": 10
+                },
+                "path": {
+                    "type": "string",
+                    "format": "uri"
+                }
+            },
+            "additionalProperties": false
+        }
+    }
+}
